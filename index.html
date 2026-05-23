@@ -68,12 +68,14 @@
         .video-wrapper { width: 100%; height: 440px; background: #000000; position: relative; border-bottom: 2px solid var(--gold-primary); }
         .video-wrapper video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* Admin Action Overlay Button */
+        /* Admin Action Overlay Button - Strictly Hidden by Default */
         .admin-delete-trigger {
-            display: none; position: absolute; top: 15px; right: 15px; background: rgba(255, 74, 74, 0.9);
+            display: none; 
+            position: absolute; top: 15px; right: 15px; background: rgba(255, 74, 74, 0.95);
             color: #ffffff; border: none; padding: 8px 14px; font-size: 0.75rem; font-weight: 700;
             text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; cursor: pointer; z-index: 10;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: background 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: background 0.2s ease;
+            user-select: none;
         }
         .admin-delete-trigger:hover { background: #ff1a1a; }
 
@@ -213,7 +215,7 @@
             <form id="upload-form" onsubmit="executeVideoInjection(event)">
                 <div class="form-group">
                     <label>Video File Source URL (.mp4)</label>
-                    <input type="text" id="videoSource" placeholder="Tap here to select a video from phone gallery..." readonly onclick="triggerHiddenStorageFilePicker()" required>
+                    <input type="text" id="videoSource" placeholder="Single tap here to pick video..." readonly onclick="triggerHiddenStorageFilePicker()" required>
                     <input type="file" id="hiddenStorageEngine" accept="video/*" style="display: none;" onchange="handleStorageAssetSelected(this)">
                 </div>
                 <div class="form-group">
@@ -262,7 +264,7 @@
         const generatedSimulatedOTP = "404804";
         let temporaryBlobStreamURL = "";
         let targetVideoFileType = "video/mp4";
-        let isAdminLoggedIn = false; // System login state tracker
+        let isAdminLoggedIn = false; 
 
         function closeCurtain() { const curtain = document.getElementById('cinematic-curtain'); if (curtain) { curtain.classList.add('fade-out'); } }
         setTimeout(() => { closeCurtain(); }, 4000);
@@ -292,7 +294,7 @@
                 isAdminLoggedIn = true;
                 alert("Authentication successful."); 
                 toggleTerminal(true); 
-                updateDeleteButtonsVisibility(); // Instantly show delete buttons
+                updateDeleteButtonsVisibility(); 
             } else { 
                 alert("Invalid credential mapping."); 
             }
@@ -331,12 +333,10 @@
                 terminalBlock.style.display = show ? 'block' : 'none'; 
                 if (show) terminalBlock.scrollIntoView({ behavior: 'smooth' }); 
             } 
-            if(!show) {
-                // If console closes, we keep buttons visible only if logged in
-                updateDeleteButtonsVisibility();
-            }
+            updateDeleteButtonsVisibility();
         }
         
+        // Single Tap to launch file selection
         function triggerHiddenStorageFilePicker() { document.getElementById('hiddenStorageEngine').click(); }
 
         function handleStorageAssetSelected(inputElement) {
@@ -348,15 +348,14 @@
             }
         }
 
-        // Loops through all cards and shows/hides delete options based on status
         function updateDeleteButtonsVisibility() {
             const deleteButtons = document.querySelectorAll('.admin-delete-trigger');
             deleteButtons.forEach(btn => {
-                btn.style.display = isAdminLoggedIn ? 'block' : 'none';
+                btn.style.setProperty('display', isAdminLoggedIn ? 'block' : 'none', 'important');
             });
         }
 
-        // Live card deletion execution function
+        // Executed only on clean double click/tap
         function deleteVideoCard(buttonElement) {
             if (confirm("Are you sure you want to remove this project from your showroom feed?")) {
                 const targetCard = buttonElement.closest('.reel-card');
@@ -377,9 +376,9 @@
             const cardNode = document.createElement('div');
             cardNode.className = 'reel-card';
             
-            // Injected dynamic layout with individual delete button tracking
+            // Replaced onclick with ondblclick for administrative protection
             cardNode.innerHTML = `
-                <button class="admin-delete-trigger" onclick="deleteVideoCard(this)"><i class="fa-solid fa-trash"></i> Delete</button>
+                <button class="admin-delete-trigger" ondblclick="deleteVideoCard(this)"><i class="fa-solid fa-trash"></i> Double Tap to Delete</button>
                 <div class="video-wrapper">
                     <video controls muted playsinline loop><source src="${temporaryBlobStreamURL}" type="${targetVideoFileType}"></video>
                 </div>
@@ -395,10 +394,9 @@
             temporaryBlobStreamURL = "";
             toggleTerminal(false);
             
-            // Set layout visibility state
             updateDeleteButtonsVisibility();
             alert(`"${title}" deployed successfully!`);
         }
     </script>
 </body>
-    </html>
+</html>
