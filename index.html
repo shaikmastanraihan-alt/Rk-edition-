@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RK.EDITIONNN | Premium Cinema Showroom</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@400;600;700&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-pure: #000000;
+            --bg-dark: #0a0a0c;
+            --card-surface: #111114;
+            --gold-primary: #d4af37;
+            --gold-glow: rgba(214, 175, 85, 0.25);
+            --gold-gradient: linear-gradient(135deg, #fceabb 0%, #f8b500 50%, #9a7300 100%);
+            --text-main: #ffffff;
+            --text-dim: #9999a1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { background-color: var(--bg-pure); color: var(--text-main); font-family: 'Montserrat', sans-serif; overflow-x: hidden; width: 100%; }
+
+        /* --- PREMIUM CINEMATIC INTRO REVEAL --- */
+        #cinematic-curtain {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #000000; z-index: 99999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            padding: 30px; cursor: pointer; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #cinematic-curtain.fade-out { opacity: 0; visibility: hidden; pointer-events: none; transform: scale(1.05); }
+        .curtain-logo { font-family: 'Cinzel', serif; font-size: 2.4rem; font-weight: 900; letter-spacing: 5px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; }
+        .curtain-sub { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; color: #f7e7be; margin-bottom: 45px; letter-spacing: 1px; }
+        .pulse-enter-btn { display: inline-flex; align-items: center; gap: 12px; padding: 16px 40px; background: transparent; border: 1px solid var(--gold-primary); color: #fff; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; border-radius: 50px; box-shadow: 0 0 15px var(--gold-glow); animation: pulseGlow 2s infinite ease-in-out; }
+        @keyframes pulseGlow { 0% { box-shadow: 0 0 5px rgba(214, 175, 85, 0.2); transform: scale(1); } 50% { box-shadow: 0 0 25px rgba(214, 175, 85, 0.6); transform: scale(1.02); } 100% { box-shadow: 0 0 5px rgba(214, 175, 85, 0.2); transform: scale(1); } }
+
+        /* --- HERO HEADLINE MASTHEAD --- */
+        header { height: 90vh; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, #000000 100%), url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1200') no-repeat center center/cover; padding: 24px; }
+        .hero-content { max-width: 650px; }
+        .hero-logo { font-family: 'Cinzel', serif; font-size: 3rem; font-weight: 900; letter-spacing: 4px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; user-select: none; }
+        .subtitle-strip { font-size: 0.7rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-dim); margin: 20px 0 35px; border-top: 1px solid rgba(214,175,85,0.25); border-bottom: 1px solid rgba(214,175,85,0.25); padding: 10px 0; line-height: 1.6; }
+        .primary-btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 35px; background: var(--gold-gradient); color: #000000; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px; transition: transform 0.3s ease, box-shadow 0.3s ease; text-decoration: none; }
+        .primary-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px var(--gold-glow); }
+
+        /* --- SERVICES SECTION --- */
+        .services-section { padding: 60px 20px 40px; background: var(--bg-pure); }
+        .section-header { font-family: 'Cinzel', serif; text-align: center; font-size: 1.8rem; letter-spacing: 3px; margin-bottom: 50px; }
+        .section-header::after { content: ''; display: block; width: 40px; height: 2px; background: var(--gold-primary); margin: 12px auto 0; }
+        .services-layout { display: flex; flex-direction: column; gap: 25px; max-width: 550px; margin: 0 auto; }
+        .service-card { background-color: var(--card-surface); border-top: 1px solid #1a1a22; border-right: 1px solid #1a1a22; border-bottom: 1px solid #1a1a22; border-left: 4px solid var(--gold-primary); padding: 35px 24px; border-radius: 0px 8px 8px 0px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; }
+        .card-icon-box { font-size: 2.2rem; color: var(--gold-primary); margin-bottom: 18px; display: flex; align-items: center; }
+        .service-card h3 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-weight: 700; font-size: 1.2rem; letter-spacing: 1.5px; margin-bottom: 12px; color: var(--text-main); }
+        .service-card p { font-size: 0.92rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 22px; }
+        .special-highlight { margin-top: -12px; margin-bottom: 22px; font-size: 0.85rem; color: #fceabb; font-style: italic; line-height: 1.4; }
+        .booking-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: #25d366; color: #000000; text-decoration: none; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; }
+
+        /* --- SHOWROOM SECTION --- */
+        .showroom-section { padding: 60px 20px 80px; background: var(--bg-dark); border-top: 1px solid #111; }
+        .reel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
+        .reel-card { background: var(--card-surface); border: 1px solid #1c1c22; border-radius: 8px; overflow: hidden; position: relative; }
+        
+        .video-wrapper { width: 100%; height: 440px; background: #000000; position: relative; border-bottom: 2px solid var(--gold-primary); }
+        .video-wrapper video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* Admin Action Overlay Button */
+        .admin-delete-trigger {
+            display: none; position: absolute; top: 15px; right: 15px; background: rgba(255, 74, 74, 0.9);
+            color: #ffffff; border: none; padding: 8px 14px; font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; cursor: pointer; z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: background 0.2s ease;
+        }
+        .admin-delete-trigger:hover { background: #ff1a1a; }
+
+        .reel-info { padding: 20px; }
+        .reel-info h4 { font-family: 'Cinzel', serif; font-size: 1rem; margin-bottom: 8px; color: #fceabb; letter-spacing: 1px; }
+        .reel-info p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.4; }
+        .category-tag { display: inline-block; background: #1c1c22; color: var(--gold-primary); font-size: 0.65rem; font-weight: 700; padding: 4px 8px; margin-top: 12px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- AUTHENTICATION MODAL LAYOUT --- */
+        #auth-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 100000; justify-content: center; align-items: center; padding: 20px; }
+        .auth-card { background: #0d0d12; border: 1px solid var(--gold-primary); width: 100%; max-width: 420px; padding: 30px; box-shadow: 0 0 35px rgba(0,0,0,0.5); border-radius: 8px; }
+        .auth-card h3 { font-family: 'Cinzel', serif; color: var(--gold-primary); margin-bottom: 20px; font-size: 1.2rem; letter-spacing: 1px; }
+        .forgot-trigger { display: block; margin-top: 15px; font-size: 0.8rem; color: var(--text-dim); text-decoration: underline; cursor: pointer; text-align: right; }
+        .forgot-trigger:hover { color: var(--gold-primary); }
+
+        /* --- SYSTEM PANEL --- */
+        #creator-terminal-section { display: none; background: #0d0d12; border: 2px solid var(--gold-primary); max-width: 600px; margin: 0 auto 40px; padding: 30px; box-shadow: 0 0 30px var(--gold-glow); }
+        .terminal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .terminal-header h3 { font-family: 'Cinzel', serif; color: var(--gold-primary); }
+        .close-terminal { background: transparent; border: none; color: #ff4a4a; font-size: 1.3rem; cursor: pointer; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; background: #050505; border: 1px solid #222; padding: 12px; color: #fff; font-size: 0.85rem; font-family: inherit; }
+        .upload-submit-btn { width: 100%; background: var(--gold-gradient); border: none; padding: 14px; font-weight: 700; text-transform: uppercase; cursor: pointer; color: #000; letter-spacing: 1px; }
+
+        /* --- GLOBAL FOOTER --- */
+        .footer { padding: 60px 20px 40px; background: #040405; text-align: center; border-top: 1px solid #111116; }
+        .global-contacts { display: flex; flex-direction: column; gap: 15px; align-items: center; margin-bottom: 30px; }
+        .contact-channel { display: inline-flex; align-items: center; gap: 10px; color: var(--text-main); text-decoration: none; font-size: 0.9rem; }
+        .contact-channel i { color: var(--gold-primary); }
+        .insta-branding { text-decoration: none; color: var(--text-main); display: inline-flex; flex-direction: column; align-items: center; }
+        .insta-branding i { font-size: 2.2rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
+        .copyright-tag { margin-top: 40px; font-size: 0.7rem; color: #44444c; letter-spacing: 1px; }
+
+        @media (min-width: 768px) {
+            .hero-logo { font-size: 4rem; }
+            .services-layout { display: grid; grid-template-columns: repeat(2, 1fr); max-width: 950px; }
+            .global-contacts { flex-direction: row; justify-content: center; gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cinematic-curtain" onclick="closeCurtain()">
+        <h1 class="curtain-logo">RK.EDITIONNN</h1>
+        <p class="curtain-sub">Visual Masterpieces &bull; Reel Excellence</p>
+        <button class="pulse-enter-btn">
+            <i class="fa-solid fa-film"></i> Enter Studio Showroom
+        </button>
+    </div>
+
+    <header>
+        <div class="hero-content">
+            <h1 class="hero-logo" onclick="handleLogoVerificationTaps()">RK.EDITIONNN</h1>
+            <div class="subtitle-strip">Videographer &bull; 3D Artist &bull; Editor &bull; Visual Storyteller</div>
+            <a href="#showroom" class="primary-btn"><i class="fa-solid fa-play"></i> Open Showcase</a>
+        </div>
+    </header>
+
+    <div id="auth-modal">
+        <div class="auth-card" id="login-view">
+            <h3><i class="fa-solid fa-shield-halved"></i> Terminal Access</h3>
+            <div class="form-group">
+                <label>Admin Password Key</label>
+                <input type="password" id="pass-key-input" placeholder="••••••••">
+            </div>
+            <button class="upload-submit-btn" onclick="verifyAdminLogin()">Authorize Key</button>
+            <span class="forgot-trigger" onclick="switchAuthView('forgot')">Forgot Password / Reset via OTP?</span>
+            <button class="close-terminal" style="margin-top:15px; width:100%; font-size:0.85rem; text-transform:uppercase;" onclick="closeAuthModal()">Cancel</button>
+        </div>
+
+        <div class="auth-card" id="forgot-view" style="display: none;">
+            <h3><i class="fa-solid fa-key"></i> Reset Authentication</h3>
+            <div id="forgot-step-1">
+                <div class="form-group">
+                    <label>Registered Mobile Number</label>
+                    <input type="tel" id="reset-phone-input" placeholder="e.g., 8309763069">
+                </div>
+                <button class="upload-submit-btn" onclick="requestResetOTP()">Send Secure OTP Verification</button>
+            </div>
+            <div id="forgot-step-2" style="display: none;">
+                <div class="form-group">
+                    <label>Enter 6-Digit OTP</label>
+                    <input type="text" id="reset-otp-input" placeholder="Hint: Enter '404804'">
+                </div>
+                <button class="upload-submit-btn" onclick="verifyResetOTP()">Confirm Code & Apply System Settings</button>
+            </div>
+            <span class="forgot-trigger" onclick="switchAuthView('login')">Return to Log In</span>
+        </div>
+    </div>
+
+    <section class="services-section">
+        <h2 class="section-header">Book Our Services</h2>
+        <div class="services-layout">
+            <div class="service-card">
+                <div>
+                    <div class="card-icon-box"><i class="fa-solid fa-video"></i></div>
+                    <h3>Wedding Cinematography</h3>
+                    <p>Capturing raw, timeless wedding day warmth and grand visual depth.</p>
+                </div>
+                <a href="https://wa.me/918309763069?text=Hello%20RK.EDITIONNN,%20I%20want%20to%20book%20Wedding%20Cinematography." target="_blank" class="booking-btn"><i class="fa-brands fa-whatsapp"></i> Book Service</a>
+            </div>
+            <div class="service-card">
+                <div>
+                    <div class="card-icon-box"><i class="fa-solid fa-bolt"></i></div>
+                    <h3>Reels & Social Edits</h3>
+                    <p>High-energy, fast-paced vertical editing structures to scale online handles.</p>
+                </div>
+                <a href="https://wa.me/918309763069?text=Hello%20RK.EDITIONNN,%20I%20m%20interested%20in%20Social%20Reels." target="_blank" class="booking-btn"><i class="fa-brands fa-whatsapp"></i> Inquire Now</a>
+            </div>
+            <div class="service-card">
+                <div>
+                    <div class="card-icon-box"><i class="fa-solid fa-cubes"></i></div>
+                    <h3>3D Visuals & Animation</h3>
+                    <p>Advanced layout environments and premium customized CGI rendering paths.</p>
+                </div>
+                <a href="https://wa.me/918309763069?text=Hello%20RK.EDITIONNN,%20I%20need%20a%20quote%20for%203D%20Visuals." target="_blank" class="booking-btn"><i class="fa-brands fa-whatsapp"></i> Get Quote</a>
+            </div>
+            <div class="service-card">
+                <div>
+                    <div class="card-icon-box"><i class="fa-solid fa-film"></i></div>
+                    <h3>Event Coverage</h3>
+                    <p>Complete systematic live reporting blueprints for premium events.</p>
+                    <div class="special-highlight">• Special Moment Capturing (Bike, Car Delivery | Surprises | Achievements)</div>
+                </div>
+                <a href="https://wa.me/918309763069?text=Hello%20RK.EDITIONNN,%20I%20want%20to%20check%20Event%20Coverage%20slots." target="_blank" class="booking-btn"><i class="fa-brands fa-whatsapp"></i> Check Slots</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="showroom" class="showroom-section">
+        <div id="creator-terminal-section">
+            <div class="terminal-header">
+                <h3><i class="fa-solid fa-terminal"></i> Upload Master Console</h3>
+                <button class="close-terminal" onclick="toggleTerminal(false)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="upload-form" onsubmit="executeVideoInjection(event)">
+                <div class="form-group">
+                    <label>Video File Source URL (.mp4)</label>
+                    <input type="text" id="videoSource" placeholder="Tap here to select a video from phone gallery..." readonly onclick="triggerHiddenStorageFilePicker()" required>
+                    <input type="file" id="hiddenStorageEngine" accept="video/*" style="display: none;" onchange="handleStorageAssetSelected(this)">
+                </div>
+                <div class="form-group">
+                    <label>Project Production Title</label>
+                    <input type="text" id="videoTitle" placeholder="e.g., Luxury Cinematic Drive" required>
+                </div>
+                <div class="form-group">
+                    <label>Feed Placement Category</label>
+                    <select id="videoCategory">
+                        <option value="Wedding Cinematography">Wedding Cinematography</option>
+                        <option value="Reels & Social Edits">Reels & Social Edits</option>
+                        <option value="3D Visuals & Animation">3D Visuals & Animation</option>
+                        <option value="Event Coverage">Event Coverage</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Style Specifications / Grading Notes</label>
+                    <textarea id="videoDesc" rows="3" placeholder="Pacing notes or custom tracking descriptions..." required></textarea>
+                </div>
+                <button type="submit" class="upload-submit-btn">Inject Masterpiece to Showroom Feed</button>
+            </form>
+        </div>
+
+        <h2 class="section-header">Edited Showcases</h2>
+        
+        <div class="reel-grid" id="live-showroom-feed"></div>
+        
+    </section>
+
+    <footer class="footer">
+        <div class="global-contacts">
+            <a href="tel:+918309763069" class="contact-channel"><i class="fa-solid fa-phone"></i> +91 8309763069</a>
+            <div class="contact-channel"><i class="fa-solid fa-location-dot"></i> Vijayawada, India</div>
+        </div>
+        <a href="https://instagram.com/rk.editionnn__" target="_blank" class="insta-branding">
+            <i class="fa-brands fa-instagram"></i>
+            <span>@rk.editionnn__</span>
+        </a>
+        <div class="copyright-tag">&copy; 2026 RK.EDITIONNN &bull; MATTE BLACK PREMIUM PORTFOLIO</div>
+    </footer>
+
+    <script>
+        let logoTaps = 0;
+        let currentAdminKey = "khajaeditor.in"; 
+        const registeredAdminPhone = "8309763069";
+        const generatedSimulatedOTP = "404804";
+        let temporaryBlobStreamURL = "";
+        let targetVideoFileType = "video/mp4";
+        let isAdminLoggedIn = false; // System login state tracker
+
+        function closeCurtain() { const curtain = document.getElementById('cinematic-curtain'); if (curtain) { curtain.classList.add('fade-out'); } }
+        setTimeout(() => { closeCurtain(); }, 4000);
+
+        function handleLogoVerificationTaps() {
+            logoTaps++;
+            if (logoTaps >= 3) { logoTaps = 0; document.getElementById('auth-modal').style.display = 'flex'; switchAuthView('login'); }
+            setTimeout(() => { logoTaps = 0; }, 2000);
+        }
+
+        function closeAuthModal() { document.getElementById('auth-modal').style.display = 'none'; document.getElementById('pass-key-input').value = ''; }
+
+        function switchAuthView(view) {
+            if (view === 'login') {
+                document.getElementById('login-view').style.display = 'block'; document.getElementById('forgot-view').style.display = 'none';
+            } else {
+                document.getElementById('login-view').style.display = 'none'; document.getElementById('forgot-view').style.display = 'block';
+                document.getElementById('forgot-step-1').style.display = 'block'; document.getElementById('forgot-step-2').style.display = 'none';
+                document.getElementById('reset-phone-input').value = ''; document.getElementById('reset-otp-input').value = '';
+            }
+        }
+
+        function verifyAdminLogin() {
+            const enteredKey = document.getElementById('pass-key-input').value;
+            if (enteredKey === currentAdminKey) { 
+                closeAuthModal(); 
+                isAdminLoggedIn = true;
+                alert("Authentication successful."); 
+                toggleTerminal(true); 
+                updateDeleteButtonsVisibility(); // Instantly show delete buttons
+            } else { 
+                alert("Invalid credential mapping."); 
+            }
+        }
+
+        function requestResetOTP() {
+            const enteredPhone = document.getElementById('reset-phone-input').value.trim();
+            if (enteredPhone.includes(registeredAdminPhone)) { alert(`Security OTP dispatched to: +91 ${registeredAdminPhone}`); document.getElementById('forgot-step-1').style.display = 'none'; document.getElementById('forgot-step-2').style.display = 'block'; } else { alert("Error: Mobile network mismatch."); }
+        }
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('PWA Service Worker Live!', reg))
+                    .catch(err => console.error('PWA Engine Offline Error:', err));
+            });
+        }
+
+        function verifyResetOTP() {
+            const enteredOTP = document.getElementById('reset-otp-input').value.trim();
+            if (enteredOTP === generatedSimulatedOTP) { 
+                currentAdminKey = "rk-edition"; 
+                closeAuthModal(); 
+                isAdminLoggedIn = true;
+                alert("OTP Verified! Password changed to: rk-edition"); 
+                toggleTerminal(true); 
+                updateDeleteButtonsVisibility();
+            } else { 
+                alert("Invalid OTP."); 
+            }
+        }
+
+        function toggleTerminal(show) { 
+            const terminalBlock = document.getElementById('creator-terminal-section'); 
+            if (terminalBlock) { 
+                terminalBlock.style.display = show ? 'block' : 'none'; 
+                if (show) terminalBlock.scrollIntoView({ behavior: 'smooth' }); 
+            } 
+            if(!show) {
+                // If console closes, we keep buttons visible only if logged in
+                updateDeleteButtonsVisibility();
+            }
+        }
+        
+        function triggerHiddenStorageFilePicker() { document.getElementById('hiddenStorageEngine').click(); }
+
+        function handleStorageAssetSelected(inputElement) {
+            if (inputElement.files && inputElement.files[0]) {
+                const nativeFileAsset = inputElement.files[0];
+                targetVideoFileType = nativeFileAsset.type;
+                document.getElementById('videoSource').value = `Selected: ${nativeFileAsset.name}`;
+                temporaryBlobStreamURL = URL.createObjectURL(nativeFileAsset);
+            }
+        }
+
+        // Loops through all cards and shows/hides delete options based on status
+        function updateDeleteButtonsVisibility() {
+            const deleteButtons = document.querySelectorAll('.admin-delete-trigger');
+            deleteButtons.forEach(btn => {
+                btn.style.display = isAdminLoggedIn ? 'block' : 'none';
+            });
+        }
+
+        // Live card deletion execution function
+        function deleteVideoCard(buttonElement) {
+            if (confirm("Are you sure you want to remove this project from your showroom feed?")) {
+                const targetCard = buttonElement.closest('.reel-card');
+                if (targetCard) {
+                    targetCard.remove();
+                }
+            }
+        }
+
+        function executeVideoInjection(event) {
+            event.preventDefault();
+            const title = document.getElementById('videoTitle').value;
+            const category = document.getElementById('videoCategory').value;
+            const desc = document.getElementById('videoDesc').value;
+            if (!temporaryBlobStreamURL) { alert("Please select a video file first."); return; }
+
+            const feedContainer = document.getElementById('live-showroom-feed');
+            const cardNode = document.createElement('div');
+            cardNode.className = 'reel-card';
+            
+            // Injected dynamic layout with individual delete button tracking
+            cardNode.innerHTML = `
+                <button class="admin-delete-trigger" onclick="deleteVideoCard(this)"><i class="fa-solid fa-trash"></i> Delete</button>
+                <div class="video-wrapper">
+                    <video controls muted playsinline loop><source src="${temporaryBlobStreamURL}" type="${targetVideoFileType}"></video>
+                </div>
+                <div class="reel-info">
+                    <h4>${title}</h4>
+                    <p>${desc}</p>
+                    <span class="category-tag">${category}</span>
+                </div>
+            `;
+            
+            feedContainer.insertBefore(cardNode, feedContainer.firstChild);
+            document.getElementById('upload-form').reset();
+            temporaryBlobStreamURL = "";
+            toggleTerminal(false);
+            
+            // Set layout visibility state
+            updateDeleteButtonsVisibility();
+            alert(`"${title}" deployed successfully!`);
+        }
+    </script>
+</body>
+</html>
